@@ -1,17 +1,19 @@
-from flask import Flask, render_template, request
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+</head>
 
-app = Flask(__name__)
-
-@app.route("/", methods=["GET", "POST"])
-def home():
-    # Always render the form (you can handle POST inside /dbs)
-    return render_template("index.html")
-
-@app.route("/dbs", methods=["POST"])
-def predict():
-    exchange_rate = float(request.form["q"])
-    predicted_price = round(exchange_rate * 1.5, 2)  # Dummy formula
-    return f"Predicted DBS Share Price: SGD {predicted_price}"
-
-if __name__ == "__main__":
-    app.run(debug=True)
+<body>
+    <div class="container">
+        <h2>Financial Web Application</h2>
+        <form action="/prediction" method="post">
+            <input type="submit" value="Share Price Prediction">
+        </form>
+        <form action="/sentiment_analysis" method="post">
+            <input type="submit" value="Sentiment Analysis">
+        </form>
+        <form action="/paynow" method="post">
+            <input type="submit" value="Transfer Money">
+        </form>
+    </div>
+</body>
