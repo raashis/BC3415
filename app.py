@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
@@ -6,11 +6,9 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route("/dbs", methods=["POST"])
-def predict():
-    exchange_rate = float(request.form["q"])
-    predicted_price = round(exchange_rate * 1.5, 2)  # Dummy prediction logic
-    return f"Predicted DBS Share Price: SGD {predicted_price}"
+@app.route("/prediction", methods=["GET", "POST"])
+def prediction():
+    return render_template("prediction.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
