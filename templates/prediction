@@ -1,18 +1,22 @@
-<head>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
-</head>
+from flask import Flask, render_template, request
 
-<body>
-    <div class="container">
-        <h2>Prediction : DBS Share Price</h2>
-        <form action="/dbs" method="post">
-            <p>Please enter the exchange rate 1 USD to SGD</p>
-            <input type="number" step="0.01" name="q">
-            <input type="submit" value="Share Price Prediction">
-        </form>
-        <form action="/" method="post">
-            <input type="submit" value="Main">
-        </form>
-    </div>
-</body>
+app = Flask(__name__)
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    if request.method == "POST":
+        # maybe return to main or reset form
+        return render_template("index.html")
+    return render_template("index.html")
+
+@app.route("/dbs", methods=["POST"])
+def predict():
+    exchange_rate = float(request.form["q"])
+    
+    # Replace this with your actual model prediction
+    predicted_price = round(exchange_rate * 1.5, 2)  # Dummy formula
+
+    return f"Predicted DBS Share Price: SGD {predicted_price}"
+
+if __name__ == "__main__":
+    app.run(debug=True)
